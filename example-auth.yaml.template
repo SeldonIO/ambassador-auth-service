@@ -28,7 +28,7 @@ spec:
       containers:
       - name: example-auth
         image: {{DOCKER_REGISTRY}}/ambassador-auth-service:{{VERSION}}
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - name: http-api
           containerPort: 3000

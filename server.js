@@ -41,23 +41,23 @@ app.use(addRequestId)
 app.use(logRequests)
 
 // Require authentication for /extauth/qotm/quote requests
-app.all('/extauth/qotm/quote*', authenticate, function (req, res) {
-  var session = req.headers['x-qotm-session']
+app.all('/extauth/seldon*', authenticate, function (req, res) {
+  var session = req.headers['x-seldon-session']
 
   if (!session) {
-    console.log(`creating x-qotm-session: ${req.id}`)
+    console.log(`creating x-seldon-session: ${req.id}`)
     session = req.id
-    res.set('x-qotm-session', session)
+    res.set('x-seldon-session', session)
   }
 
-  console.log(`allowing QotM request, session ${session}`)
+  console.log(`allowing Seldon request, session ${session}`)
   res.send('OK (authenticated)')
 })
 
 // Everything else is okay without auth
 app.all('*', function (req, res) {
   console.log(`Allowing request to ${req.path}`)
-  res.send('OK (not /qotm/quote)')
+  res.send('OK (not /seldon)')
 })
 
 app.listen(3000, function () {
